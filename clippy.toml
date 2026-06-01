@@ -1,0 +1,4 @@
+# GUI template: async-first via Tauri commands.
+# Tauri command handlers run on the async runtime.
+# Use std::fs only for one-shot config loading at startup.
+# Prefer tokio::fs for runtime file I/O.
