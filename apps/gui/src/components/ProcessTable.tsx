@@ -29,8 +29,10 @@ export function ProcessTable({ processes, maxRows, onViewAll }: ProcessTableProp
     if (typeof av === "string" && typeof bv === "string") {
       return sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     }
-    const an = typeof av === "number" ? av : parseFloat(av as string);
-    const bn = typeof bv === "number" ? bv : parseFloat(bv as string);
+    const toNum = (v: unknown): number =>
+      typeof v === "number" ? v : (typeof v === "string" ? parseFloat(v) : 0);
+    const an = toNum(av);
+    const bn = toNum(bv);
     return sortDir === "asc" ? an - bn : bn - an;
   });
 

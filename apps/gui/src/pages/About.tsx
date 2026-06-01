@@ -1,7 +1,10 @@
-import { getLocale, t } from "../i18n";
+import { t, type Locale } from "../i18n";
 
-export function About() {
-  const locale = getLocale();
+interface AboutProps {
+  locale: Locale;
+}
+
+export function About({ locale }: AboutProps) {
 
   return (
     <div className="flex flex-col gap-4">

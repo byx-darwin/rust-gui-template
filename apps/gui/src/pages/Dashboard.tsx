@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import { getLocale, t } from "../i18n";
+import { t, type Locale } from "../i18n";
 import { StatCard } from "../components/StatCard";
 import { Sparkline } from "../components/Sparkline";
 import { ProcessTable } from "../components/ProcessTable";
@@ -8,11 +7,11 @@ import type { SystemSnapshot } from "../types";
 
 interface DashboardProps {
   snapshot: SystemSnapshot | null;
+  locale: Locale;
   onViewAll: () => void;
 }
 
-export function Dashboard({ snapshot, onViewAll }: DashboardProps) {
-  const locale = getLocale();
+export function Dashboard({ snapshot, locale, onViewAll }: DashboardProps) {
 
   const topProcesses = useMemo(() => {
     if (!snapshot) return [];

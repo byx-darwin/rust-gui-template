@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useSystemSnapshot } from "./hooks/useSystemSnapshot";
 import { getLocale, t, toggleLocale, type Locale } from "./i18n";
 import { Sidebar } from "./components/Sidebar";
@@ -35,6 +35,7 @@ export default function App() {
   }, []);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const activePage = location.pathname.replace("/", "") || "dashboard";
 
   return (
@@ -51,19 +52,20 @@ export default function App() {
               element={
                 <Dashboard
                   snapshot={snapshot}
-                  onViewAll={() => window.location.hash = "#/processes"}
+                  locale={locale}
+                  onViewAll={() => navigate("/processes")}
                 />
               }
             />
             <Route
               path="/processes"
               element={
-                <Processes processes={snapshot?.processes ?? []} />
+                <Processes processes={snapshot?.processes ?? []} locale={locale} />
               }
             />
             <Route
               path="/about"
-              element={<About />}
+              element={<About locale={locale} />}
             />
           </Routes>
         </main>
