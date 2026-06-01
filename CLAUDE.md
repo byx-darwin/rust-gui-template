@@ -168,6 +168,39 @@ These rules apply whenever Rust and TypeScript code communicates across the Taur
 - Return `Result<T>` for fallible operations.
 - Use `thiserror` for library error enums and `anyhow` for application-level error context.
 
+## Type and API Design
+
+- Make illegal states unrepresentable with private fields, newtypes, `#[non_exhaustive]`.
+- Use `typed-builder` for structs with >5 fields. Prefer `From`/`TryFrom`/`FromStr`.
+- Avoid unnecessary allocation: prefer `Cow<str>`, `Bytes`, `Arc`. Pre-allocate with `Vec::with_capacity()`.
+
+## Async and Concurrency
+
+- Use Tokio with explicit features. Never block inside async code — use `spawn_blocking`.
+- Prefer `DashMap` over `Mutex<HashMap>`. Use `ArcSwap` for rarely-updated shared config.
+- Handle all spawned task results. Prefer `JoinSet` for task groups.
+- Use `tracing`; never `println!` or `dbg!`. Add `#[instrument]` on async boundaries.
+
+## Security and Secrets
+
+- Validate immediately at deserialization boundaries. Bound all strings and collections.
+- Use `SafePath` from `{{ project-name }}-core` for externally-supplied file paths.
+- Prevent SSRF: parse URLs, allowlist schemes, reject private IPs.
+- Use parameterized DB APIs. Never concatenate user input into SQL or shell commands.
+- Use `rustls` with `aws-lc-rs`. Use Argon2id for passwords, `OsRng` for keys.
+- Wrap secrets with `secrecy` types. Use constant-time comparison for tokens. Design for key rotation.
+
+## Serialization and Dependencies
+
+- Use strongly typed `serde`. Validate deserialized data immediately.
+- Minimize dependency count. Use workspace deps. Audit before adding.
+
+## Code Style
+
+- Import order: std, external, local. Run `rustfmt`, don't hand-format.
+- Write doc comments for all public items. Document `# Errors`, `# Panics`, `# Safety`.
+- Pass `cargo clippy --all-targets --all-features -- -D warnings -W clippy::pedantic`.
+
 ## Testing (TDD)
 
 Follow TDD for every feature and bug fix: **RED → GREEN → REFACTOR**.
