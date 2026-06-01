@@ -1,0 +1,20 @@
+[template]
+exclude = [
+    "cliff.toml",
+    ".cursor/*",
+    ".claude/*",
+    ".idea/*",
+    ".pre-commit-config.yaml",
+    "_typos.toml",
+    ".tokeignore",
+    "scripts/*",
+    ".env*",
+    "*.pem",
+    "*.key",
+    "secrets/",
+]
+
+[placeholders]
+project-name = { prompt = "Project name (kebab-case)", type = "string", default = "my-gui" }
+authors = { prompt = "Author name <email>", type = "string", default = "Your Name <you@example.com>" }
+description = { prompt = "Short description", type = "string", default = "A Rust GUI application" }

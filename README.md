@@ -1,3 +1,42 @@
-# rust-gui-template
+# {{ project-name }}
 
-My go-to template for Rust GUI projects — Tauri-powered, React + Tailwind frontend, pre-commit hooks, GitHub Actions CI, and a system monitoring dashboard that just works out of the box!
+A Rust GUI application built with Tauri + React + Tailwind, from the [rust-gui-template](https://github.com/byx-darwin/rust-gui-template).
+
+## Quickstart
+
+```bash
+# Install frontend deps
+cd apps/gui && pnpm install
+
+# Run in dev mode (hot reload)
+make dev
+
+# Build platform installer
+make bundle
+```
+
+## Development
+
+```bash
+# Install all dev tools
+make install-tools
+
+# Rust checks
+make build
+make test
+make lint
+
+# Frontend only (Vite dev server)
+make frontend
+```
+
+## Configuration
+
+{{ project-name }} reads config from:
+
+1. Built-in defaults
+2. CLI flags (`--demo` for simulated data)
+
+## License
+
+MIT — see [LICENSE.md](LICENSE.md).
